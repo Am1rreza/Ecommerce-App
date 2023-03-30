@@ -115,6 +115,12 @@
       format("truetype");
 }
 
+:root {
+  --primary-color : #334155;
+  --secondary-color : #64748b;
+  --hover-color : #94a3b8;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -123,6 +129,8 @@
 
 body {
   font-family: iranyekan !important;
+  background-color: #0f172a;
+  color: #feffff;
 }
 
 h1,
