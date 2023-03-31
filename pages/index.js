@@ -72,14 +72,27 @@ export default function Home() {
           </div>
         </div>
         <div className="md:col-span-9 grid grid-cols-6 gap-6">
-          {[1, 2, 3, 4, 5, 6].map((index) => {
+          {[
+            "github.png",
+            "Nextjs.png",
+            "reactjs.png",
+            "tailwind.jpg",
+            "typescript.png",
+            "vue.jpg",
+          ].map((item,index) => {
             return (
               <div
                 key={index}
-                className="col-span-6 md:col-span-3 lg:col-span-2 bg-primary-color rounded-lg p-4"
+                className="col-span-6 md:col-span-3 lg:col-span-2 bg-primary-color rounded-lg p-2"
               >
                 {/* cover image */}
-                <div></div>
+                <div className="overflow-hidden rounded aspect-w-16 aspect-h-9">
+                  <img
+                    src={`/images/${item}`}
+                    alt="next.js"
+                    className="w-full h-full object-cover object-center cursor-pointer transition-transform duration-300 hover:scale-[1.15]"
+                  />
+                </div>
                 {/* blog content */}
                 <div></div>
               </div>

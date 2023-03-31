@@ -33,3 +33,6 @@ yarn-error.log*
 
 # assets
 /public/assets
+
+# images
+/public/images
