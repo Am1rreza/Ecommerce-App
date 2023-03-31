@@ -9,7 +9,7 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="container mx-auto lg:max-w-screen-xl">
+    <div className="container mx-auto lg:max-w-screen-xl px-4 py-6">
       <div className="grid gap-4 md:grid-cols-12 md:grid-rows-[60px_minmax(300px,1fr)] min-h-screen">
         <div className="hidden md:block md:row-span-2 md:col-span-3">
           <div className="rounded-lg overflow-hidden">
@@ -71,7 +71,21 @@ export default function Home() {
             </ul>
           </div>
         </div>
-        <div className="bg-primary-color md:col-span-9">Blogs</div>
+        <div className="md:col-span-9 grid grid-cols-6 gap-6">
+          {[1, 2, 3, 4, 5, 6].map((index) => {
+            return (
+              <div
+                key={index}
+                className="col-span-6 md:col-span-3 lg:col-span-2 bg-primary-color rounded-lg p-4"
+              >
+                {/* cover image */}
+                <div></div>
+                {/* blog content */}
+                <div></div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
