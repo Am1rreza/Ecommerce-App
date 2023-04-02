@@ -6,10 +6,11 @@ import {
   ChatBubbleBottomCenterTextIcon,
   ClockIcon,
 } from "@heroicons/react/24/outline";
+import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Home() {
+export default function Home({ blogData }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -153,4 +154,17 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const { data: result } = await axios.get(
+    "http://localhost:5000/api/posts?limit=10&page=1"
+  );
+  const { data } = result;
+
+  return {
+    props: {
+      blogData: data,
+    },
+  };
 }
