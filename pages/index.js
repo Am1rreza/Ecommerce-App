@@ -1,6 +1,10 @@
 import {
   AdjustmentsVerticalIcon,
   ChevronDownIcon,
+  BookmarkIcon,
+  HeartIcon,
+  ChatBubbleBottomCenterTextIcon,
+  ClockIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useState } from "react";
@@ -10,7 +14,7 @@ export default function Home() {
 
   return (
     <div className="container mx-auto lg:max-w-screen-xl px-4 py-6">
-      <div className="grid gap-4 md:grid-cols-12 md:grid-rows-[60px_minmax(300px,1fr)] min-h-screen">
+      <div className="grid gap-4 md:grid-cols-12 md:grid-rows-[60px_minmax(300px,1fr)]">
         <div className="hidden md:block md:row-span-2 md:col-span-3">
           <div className="rounded-lg overflow-hidden">
             {/* accordion header*/}
@@ -79,11 +83,11 @@ export default function Home() {
             "tailwind.jpg",
             "typescript.png",
             "vue.jpg",
-          ].map((item,index) => {
+          ].map((item, index) => {
             return (
               <div
                 key={index}
-                className="col-span-6 md:col-span-3 lg:col-span-2 bg-primary-color rounded-lg p-2"
+                className="h-min col-span-6 md:col-span-3 lg:col-span-2 bg-primary-color rounded-lg p-2"
               >
                 {/* cover image */}
                 <div className="overflow-hidden rounded aspect-w-16 aspect-h-9">
@@ -94,7 +98,49 @@ export default function Home() {
                   />
                 </div>
                 {/* blog content */}
-                <div></div>
+                <div className="flex-1 p-2 mt-2 bg-secondary-color rounded">
+                  <h2 className="mb-4 font-bold">بررسی کامل ریکت و ریداکس</h2>
+                  {/* blog author and blog category */}
+                  <div className="mb-4 flex items-center justify-between text-sm gap-x-2">
+                    <div className="flex items-center gap-x-2">
+                      <img
+                        alt="..."
+                        src="/images/Nextjs.png"
+                        className="w-6 h-6 rounded-full ring-2 ring-primary-color object-cover"
+                      />
+                      <span>امیررضا موسوی فرد</span>
+                    </div>
+                    <span className="text-xs px-2 py-1 rounded-xl bg-primary-color cursor-pointer transition-all hover:bg-hover-primary-color">
+                      فرانت‌اند
+                    </span>
+                  </div>
+                  {/* blog intraction */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-x-1">
+                      <span className="bg-gray-400 rounded flex items-center p-0.5 cursor-pointer">
+                        <ChatBubbleBottomCenterTextIcon className="w-4 h-4 stroke-gray-600 fill-gray-600/0 transition-all hover:fill-gray-600/100" />
+                        <span className="text-xs mr-0.5 text-gray-600 font-bold">
+                          2
+                        </span>
+                      </span>
+                      <span className="bg-red-300 rounded flex items-center p-0.5 cursor-pointer">
+                        <HeartIcon className="w-4 h-4 stroke-red-600 fill-red-600/0 transition-all hover:fill-red-600/100" />
+                        <span className="text-xs mr-0.5 text-red-600 font-bold">
+                          2
+                        </span>
+                      </span>
+                      <span className="bg-blue-300 rounded flex items-center p-0.5 cursor-pointer">
+                        <BookmarkIcon className="w-4 h-4 stroke-blue-600 fill-blue-600/0 transition-all hover:fill-blue-600/100" />
+                      </span>
+                    </div>
+                    <div className="flex items-center">
+                      <ClockIcon className="w-4 h-4 stroke-gray-300" />
+                      <p className="text-gray-300 text-xs mr-0.5">
+                        زمان مطالعه: 12 دقیقه
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             );
           })}
