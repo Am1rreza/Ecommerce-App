@@ -11,7 +11,7 @@ const BlogList = ({ blogData }) => {
     return (
       <div
         key={blog._id}
-        className="h-min col-span-6 md:col-span-3 lg:col-span-2 bg-primary-color rounded-lg p-2 flex flex-col"
+        className="min-h-max col-span-6 md:col-span-3 lg:col-span-2 bg-primary-color rounded-lg p-2 flex flex-col"
       >
         {/* cover image */}
         <div className="overflow-hidden rounded aspect-w-16 aspect-h-9">
@@ -23,7 +23,7 @@ const BlogList = ({ blogData }) => {
         </div>
         {/* blog content */}
         <div className="flex-1 p-2 mt-2 bg-secondary-color rounded flex flex-col justify-between w-full">
-          <h2 className="mb-4 font-bold truncate cursor-pointer">
+          <h2 className="mb-4 font-bold cursor-pointer">
             {blog.title}
           </h2>
           {/* blog data */}
@@ -36,7 +36,7 @@ const BlogList = ({ blogData }) => {
                   alt={blog.slug}
                   className="w-6 h-6 rounded-full ring-2 ring-primary-color object-cover"
                 />
-                <span className="text-xs">امیررضا موسوی فرد</span>
+                <span className="text-xs">{blog.author.name}</span>
               </div>
               <Link
                 legacyBehavior
