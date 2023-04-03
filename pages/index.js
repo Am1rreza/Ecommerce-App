@@ -1,45 +1,14 @@
-import BlogList from "@/components/BlogList/BlogList";
-import DesktopCategory from "@/components/Category/DesktopCategory";
-import MobileCategory from "@/components/Category/MobileCategory";
-import DesktopSortBar from "@/components/SortBar/DesktopSortBar";
-import axios from "axios";
+import Link from "next/link";
 
-export default function Home({ blogData, postCategories }) {
+const HomePage = () => {
   return (
-    <div className="container mx-auto lg:max-w-screen-xl px-4 py-6">
-      <div className="grid gap-4 md:grid-cols-12 md:grid-rows-[60px_minmax(300px,1fr)]">
-        <div className="hidden md:block md:row-span-2 md:col-span-3">
-          <DesktopCategory postCategories={postCategories} />
-        </div>
-
-        <MobileCategory postCategories={postCategories} />
-
-        <div className="hidden md:block md:col-span-9">
-          <DesktopSortBar />
-        </div>
-
-        <div className="md:col-span-9 grid grid-cols-6 gap-6">
-          <BlogList blogData={blogData} />
-        </div>
+    <div className="h-screen flex justify-center items-center">
+      <div className="text-center flex flex-col items-center gap-y-5 sm:gap-y-8 lg:gap-y-12">
+        <h1 className="font-black text-4xl sm:text-6xl lg:text-8xl">خوش آمدید !</h1>
+        <Link href={"/blogs"} className="block text-sm sm:text-base w-fit bg-primary-color p-3 rounded-lg transition-all hover:bg-hover-primary-color">ورود به صفحه‌ی بلاگ ها</Link>
       </div>
     </div>
   );
-}
+};
 
-export async function getServerSideProps() {
-  const { data: result } = await axios.get(
-    "http://localhost:5000/api/posts?limit=10&page=1"
-  );
-  const { data: postCategories } = await axios.get(
-    "http://localhost:5000/api/post-category"
-  );
-
-  const { data } = result;
-
-  return {
-    props: {
-      blogData: data,
-      postCategories: postCategories.data,
-    },
-  };
-}
+export default HomePage;
