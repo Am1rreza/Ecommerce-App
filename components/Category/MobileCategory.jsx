@@ -2,7 +2,13 @@ import Link from "next/link";
 
 const MobileCategory = ({ postCategories }) => {
   return (
-    <div className="flex md:hidden gap-x-4 overflow-auto pb-5 -mb-4">
+    <div className="flex justify-center md:hidden gap-x-4 overflow-auto pb-5 -mb-4">
+      <Link
+        href={"/blogs"}
+        className="block border border-gray-500 bg-secondary-color rounded-3xl px-3 py-1 whitespace-nowrap text-sm"
+      >
+        همه مقالات
+      </Link>
       {postCategories.map((category) => {
         return (
           <Link
