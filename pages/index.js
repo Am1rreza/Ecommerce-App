@@ -7,7 +7,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Home({ blogData }) {
+export default function Home({ blogData, postCategories }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -23,35 +23,34 @@ export default function Home({ blogData }) {
             >
               <span>دسته‌بندی مقالات</span>
               <ChevronDownIcon
-                className={`w-6 h-6 transition-all duration-[400ms] ${
+                className={`w-6 h-6 transition-all duration-500 ${
                   isOpen ? "rotate-180" : "rotate-0"
                 }`}
               />
             </div>
             {/* accordion content */}
             <div
-              className={`bg-secondary-color overflow-hidden transition-[max-height] duration-[400ms] ${
-                isOpen ? "max-h-40" : "max-h-0"
+              className={`space-y-1 bg-secondary-color overflow-hidden transition-[max-height] duration-500 ${
+                isOpen ? "max-h-screen" : "max-h-0"
               }`}
             >
               <Link
-                href={"#"}
-                className="block pr-4 py-2 mb-1 transition-all hover:bg-hover-secondary-color"
+                href={"/blogs"}
+                className="block -mb-1 pr-4 py-2 transition-all hover:bg-hover-secondary-color"
               >
                 همه مقالات
               </Link>
-              <Link
-                href={"#"}
-                className="block pr-4 py-2 mb-1 transition-all hover:bg-hover-secondary-color"
-              >
-                فرانت‌اند
-              </Link>
-              <Link
-                href={"#"}
-                className="block pr-4 py-2 transition-all hover:bg-hover-secondary-color"
-              >
-                بک‌اند
-              </Link>
+              {postCategories.map((category) => {
+                return (
+                  <Link
+                    key={category._id}
+                    href={`/blogs/${category.englishTitle}`}
+                    className="block pr-4 py-2 transition-all hover:bg-hover-secondary-color"
+                  >
+                    {category.title}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -88,11 +87,16 @@ export async function getServerSideProps() {
   const { data: result } = await axios.get(
     "http://localhost:5000/api/posts?limit=10&page=1"
   );
+  const { data: postCategories } = await axios.get(
+    "http://localhost:5000/api/post-category"
+  );
+
   const { data } = result;
 
   return {
     props: {
       blogData: data,
+      postCategories: postCategories.data,
     },
   };
 }
