@@ -54,6 +54,20 @@ export default function Home({ blogData, postCategories }) {
             </div>
           </div>
         </div>
+        {/* category mobile */}
+        <div className="flex md:hidden gap-x-4 overflow-auto pb-5 -mb-4">
+          {postCategories.map((category) => {
+            return (
+              <Link
+                key={category._id}
+                href={`/blogs/${category.englishTitle}`}
+                className="block border border-gray-500 bg-secondary-color rounded-3xl px-3 py-1 whitespace-nowrap text-sm"
+              >
+                {category.title}
+              </Link>
+            );
+          })}
+        </div>
         {/* sortbar desktop */}
         <div className="hidden md:block md:col-span-9">
           <div className="bg-primary-color rounded-lg px-4 py-1 flex items-center">
