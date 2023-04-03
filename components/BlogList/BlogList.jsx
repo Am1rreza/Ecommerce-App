@@ -4,6 +4,7 @@ import {
   ChatBubbleBottomCenterTextIcon,
   ClockIcon,
 } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 const BlogList = ({ blogData }) => {
   return blogData.docs.map((blog) => {
@@ -22,7 +23,9 @@ const BlogList = ({ blogData }) => {
         </div>
         {/* blog content */}
         <div className="flex-1 p-2 mt-2 bg-secondary-color rounded flex flex-col justify-between w-full">
-          <h2 className="mb-4 font-bold truncate cursor-pointer">{blog.title}</h2>
+          <h2 className="mb-4 font-bold truncate cursor-pointer">
+            {blog.title}
+          </h2>
           {/* blog data */}
           <div>
             {/* blog author and blog category */}
@@ -35,9 +38,14 @@ const BlogList = ({ blogData }) => {
                 />
                 <span className="text-xs">امیررضا موسوی فرد</span>
               </div>
-              <span className="truncate text-xs px-2 py-1 rounded-xl bg-primary-color cursor-pointer transition-all hover:bg-hover-primary-color">
-                {blog.category.title}
-              </span>
+              <Link
+                legacyBehavior
+                href={`/blogs/${blog.category.englishTitle}`}
+              >
+                <span className="truncate text-xs px-2 py-1 rounded-xl bg-primary-color cursor-pointer transition-all hover:bg-hover-primary-color">
+                  {blog.category.title}
+                </span>
+              </Link>
             </div>
             {/* blog intraction */}
             <div className="flex items-center justify-between">
