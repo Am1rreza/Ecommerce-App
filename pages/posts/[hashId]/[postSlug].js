@@ -16,25 +16,25 @@ const PostPage = ({ post }) => {
   }
 
   return (
-    <div className="min-h-screen px-4 md:px-6 py-6">
-      <div className="container md:max-w-screen-md mx-auto">
-        <header className="flex flex-col sm:flex-row gap-y-4 sm:justify-between sm:items-start mb-10">
+    <div className="min-h-screen px-4 py-6 md:px-6">
+      <div className="container mx-auto md:max-w-screen-md">
+        <header className="mb-10 flex flex-col gap-y-4 sm:flex-row sm:items-start sm:justify-between">
           {/* author data */}
           <div className="flex items-stretch">
             <img
               alt={post.author.name}
               src="/images/1673374010628.jpg"
-              className="w-14 h-14 md:w-20 md:h-20 rounded-full ring-2 ring-gray-300"
+              className="h-14 w-14 rounded-full ring-2 ring-gray-300 md:h-20 md:w-20"
             />
-            <div className="flex flex-col justify-between mr-4">
+            <div className="mr-4 flex flex-col justify-between">
               <div>
                 <span>{post.author.name}</span>
               </div>
-              <span className="font-normal text-gray-400 text-xs hidden md:block">
+              <span className="hidden text-xs font-normal text-gray-400 md:block">
                 {post.author.biography}
               </span>
 
-              <div className="font-normal text-gray-400 text-xs">
+              <div className="text-xs font-normal text-gray-400">
                 <span>
                   {new Date(post.createdAt).toLocaleString("fa-IR", {
                     dateStyle: "medium",
@@ -52,21 +52,21 @@ const PostPage = ({ post }) => {
           {/* interaction buttons */}
           <div className="flex">
             <button>
-              <LinkIcon className="w-6 h-6 hover:text-hover-secondary-color text-secondary-color cursor-pointer transition-all" />
+              <LinkIcon className="h-6 w-6 cursor-pointer text-secondary-color transition-all hover:text-hover-secondary-color" />
             </button>
-            <button className="mr-4 transition-all border border-secondary-color text-secondary-color hover:text-hover-secondary-color rounded-full px-3 py-1 flex items-center">
+            <button className="mr-4 flex items-center rounded-full border border-secondary-color px-3 py-1 text-secondary-color transition-all hover:text-hover-secondary-color">
               <span className="ml-1 text-xs">
                 {post.isBookmarked ? "ذخیره شده" : "ذخیره"}
               </span>
               <BookmarkIcon
-                className={`w-6 h-6 ${
+                className={`h-6 w-6 ${
                   post.isBookmarked ? "fill-secondary-color stroke-none" : ""
                 }`}
               />
             </button>
           </div>
         </header>
-        <main className="prose md:prose-lg lg:prose-xl prose-invert prose-h1:font-extrabold prose-h1:text-2xl prose-h1:md:text-3xl prose-h1:mb-4 prose-p:text-base prose-p:leading-8 prose-p:md:leading-10 prose-p:md:text-lg prose-img:rounded-xl">
+        <main className="prose prose-invert md:prose-lg lg:prose-xl prose-h1:mb-4 prose-h1:text-2xl prose-h1:font-extrabold prose-p:text-base prose-p:leading-8 prose-img:rounded-xl prose-h1:md:text-3xl prose-p:md:text-lg prose-p:md:leading-10">
           <h1>{post.title}</h1>
           <h2>عنوان تستی</h2>
           <p>
@@ -112,6 +112,22 @@ const PostPage = ({ post }) => {
             طراحی اساسا مورد استفاده قرار گیرد.
           </p>
         </main>
+        {/* post footer */}
+        <section>
+          {/* post tags */}
+          <ul className="mt-8 flex flex-wrap items-center gap-x-4">
+            {post.tags.map((tag) => {
+              return (
+                <li
+                  key={post._id}
+                  className="mb-3 block cursor-pointer rounded-3xl border-gray-500 bg-secondary-color px-3 py-1 text-sm transition-all hover:bg-hover-secondary-color md:text-base"
+                >
+                  {tag}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
       </div>
     </div>
   );
