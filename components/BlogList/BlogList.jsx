@@ -1,11 +1,7 @@
 import toPersianDigits from "@/utils/toPersianDigits";
-import {
-  BookmarkIcon,
-  HeartIcon,
-  ChatBubbleBottomCenterTextIcon,
-  ClockIcon,
-} from "@heroicons/react/24/outline";
+import { ClockIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import PostInteraction from "../PostInteraction/PostInteraction";
 
 const BlogList = ({ blogData }) => {
   return blogData.docs.map((blog) => {
@@ -52,35 +48,7 @@ const BlogList = ({ blogData }) => {
             </div>
             {/* blog intraction */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-x-1">
-                <span className="flex cursor-pointer items-center rounded bg-gray-400 p-0.5">
-                  <ChatBubbleBottomCenterTextIcon className="h-4 w-4 stroke-gray-600" />
-                  <span className="mr-0.5 text-xs font-bold text-gray-600">
-                    {toPersianDigits(blog.commentsCount)}
-                  </span>
-                </span>
-                <span className="flex cursor-pointer items-center rounded bg-red-300 p-0.5">
-                  <HeartIcon
-                    className={`h-4 w-4 stroke-red-600 ${
-                      blog.isLiked
-                        ? "fill-red-600"
-                        : "fill-red-600/0 transition-all hover:fill-red-600/100"
-                    }`}
-                  />
-                  <span className="mr-0.5 text-xs font-bold text-red-600">
-                    {toPersianDigits(blog.likesCount)}
-                  </span>
-                </span>
-                <span className="flex cursor-pointer items-center rounded bg-blue-300 p-0.5">
-                  <BookmarkIcon
-                    className={`h-4 w-4 stroke-blue-600 ${
-                      blog.isBookmarked
-                        ? "fill-blue-600"
-                        : "fill-blue-600/0 transition-all hover:fill-blue-600/100"
-                    }`}
-                  />
-                </span>
-              </div>
+              <PostInteraction post={blog} isSmall={true} />
               <div className="flex items-center">
                 <ClockIcon className="h-4 w-4 stroke-gray-300" />
                 <p className="mr-0.5 text-xs text-gray-300">

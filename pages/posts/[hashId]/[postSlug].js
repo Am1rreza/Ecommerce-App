@@ -1,3 +1,4 @@
+import PostInteraction from "@/components/PostInteraction/PostInteraction";
 import toPersianDigits from "@/utils/toPersianDigits";
 import { LinkIcon, BookmarkIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
@@ -66,7 +67,7 @@ const PostPage = ({ post }) => {
             </button>
           </div>
         </header>
-        <main className="prose prose-invert md:prose-lg lg:prose-xl prose-h1:mb-4 prose-h1:text-2xl prose-h1:font-extrabold prose-p:text-base prose-p:leading-8 prose-img:rounded-xl prose-h1:md:text-3xl prose-p:md:text-lg prose-p:md:leading-10">
+        <main className="prose prose-ul:mt-0 prose-ul:mb-2 prose-invert md:prose-lg lg:prose-xl prose-h1:mb-4 prose-h1:text-2xl prose-h1:font-extrabold prose-p:text-base prose-p:leading-8 prose-img:rounded-xl prose-h1:md:text-3xl prose-p:md:text-lg prose-p:md:leading-10">
           <h1>{post.title}</h1>
           <h2>عنوان تستی</h2>
           <p>
@@ -111,23 +112,24 @@ const PostPage = ({ post }) => {
             حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود
             طراحی اساسا مورد استفاده قرار گیرد.
           </p>
+          <section className="flex flex-col md:flex-row md:items-center md:justify-between">
+            {/* post tags */}
+            <ul className="flex flex-wrap items-center gap-x-4">
+              {post.tags.map((tag) => {
+                return (
+                  <li
+                    key={post._id}
+                    className="mb-4 block cursor-pointer rounded-3xl border-gray-500 bg-secondary-color px-3 py-1 text-sm transition-all hover:bg-hover-secondary-color md:text-base"
+                  >
+                    {tag}
+                  </li>
+                );
+              })}
+            </ul>
+            {/* like - bookmark - comment */}
+            <PostInteraction post={post} />
+          </section>
         </main>
-        {/* post footer */}
-        <section>
-          {/* post tags */}
-          <ul className="mt-8 flex flex-wrap items-center gap-x-4">
-            {post.tags.map((tag) => {
-              return (
-                <li
-                  key={post._id}
-                  className="mb-3 block cursor-pointer rounded-3xl border-gray-500 bg-secondary-color px-3 py-1 text-sm transition-all hover:bg-hover-secondary-color md:text-base"
-                >
-                  {tag}
-                </li>
-              );
-            })}
-          </ul>
-        </section>
       </div>
     </div>
   );
