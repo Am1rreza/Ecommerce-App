@@ -6,28 +6,28 @@ const DesktopCategory = ({ postCategories }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="rounded-lg overflow-hidden">
+    <div className="overflow-hidden rounded-lg">
       {/* accordion header*/}
       <div
-        className="flex justify-between items-center p-3 cursor-pointer bg-primary-color"
+        className="flex cursor-pointer items-center justify-between bg-primary-color p-3"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>دسته‌بندی مقالات</span>
         <ChevronDownIcon
-          className={`w-6 h-6 transition-all duration-500 ${
+          className={`h-6 w-6 transition-all duration-500 ${
             isOpen ? "rotate-180" : "rotate-0"
           }`}
         />
       </div>
       {/* accordion content */}
       <div
-        className={`space-y-1 bg-secondary-color overflow-hidden transition-[max-height] duration-500 ${
+        className={`space-y-1 overflow-hidden bg-secondary-color transition-[max-height] duration-500 ${
           isOpen ? "max-h-screen" : "max-h-0"
         }`}
       >
         <Link
           href={"/blogs"}
-          className="block -mb-1 pr-4 py-2 transition-all hover:bg-hover-secondary-color"
+          className="-mb-1 block py-2 pr-4 transition-all hover:bg-hover-secondary-color"
         >
           همه مقالات
         </Link>
@@ -36,7 +36,7 @@ const DesktopCategory = ({ postCategories }) => {
             <Link
               key={category._id}
               href={`/blogs/${category.englishTitle}`}
-              className="block pr-4 py-2 transition-all hover:bg-hover-secondary-color"
+              className="block py-2 pr-4 transition-all hover:bg-hover-secondary-color"
             >
               {category.title}
             </Link>
