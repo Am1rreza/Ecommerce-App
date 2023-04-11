@@ -147,7 +147,7 @@ const PostPage = ({ post }) => {
           <section className="mt-4 flex flex-row-reverse items-center justify-end gap-x-5 md:mt-0 md:flex-row">
             <div className="relative">
               {copied && (
-                <span className="absolute bottom-1/2 block translate-y-1/2 translate-x-full rounded-2xl bg-primary-color px-3 py-1 text-sm text-white">
+                <span className="absolute bottom-full block -translate-y-1 -translate-x-1/4 rounded-2xl bg-primary-color px-3 py-1 text-sm text-white md:bottom-1/2 md:translate-y-1/2 md:translate-x-full">
                   کپی شد
                 </span>
               )}
@@ -155,7 +155,7 @@ const PostPage = ({ post }) => {
                 text={`${process.env.NEXT_PUBLIC_DOMAIN_URL}/posts/${post.hashId}/${post.slug}`}
                 onCopy={copyHandler}
               >
-                <div className="mr-1 flex cursor-pointer items-center gap-x-2 rounded-2xl border border-secondary-color px-4 py-1.5 text-secondary-color transition-all hover:border-hover-secondary-color hover:text-hover-secondary-color">
+                <div className="-mr-1 flex cursor-pointer items-center gap-x-2 rounded-2xl border border-secondary-color px-4 py-1.5 text-secondary-color transition-all hover:border-hover-secondary-color hover:text-hover-secondary-color md:mr-1">
                   <span className="text-sm">کپی&nbsp;لینک</span>
                   <MdContentCopy size={20} />
                 </div>
