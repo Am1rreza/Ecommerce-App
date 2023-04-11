@@ -3,6 +3,8 @@ import toPersianDigits from "@/utils/toPersianDigits";
 import { LinkIcon, BookmarkIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { IoLogoLinkedin, IoLogoTwitter } from "react-icons/io";
+import { FaTelegram } from "react-icons/fa";
 
 const PostPage = ({ post }) => {
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
@@ -67,7 +69,7 @@ const PostPage = ({ post }) => {
             </button>
           </div>
         </header>
-        <main className="prose prose-ul:mt-0 prose-ul:mb-2 prose-invert md:prose-lg lg:prose-xl prose-h1:mb-4 prose-h1:text-2xl prose-h1:font-extrabold prose-p:text-base prose-p:leading-8 prose-img:rounded-xl prose-h1:md:text-3xl prose-p:md:text-lg prose-p:md:leading-10">
+        <main className="prose prose-invert md:prose-lg lg:prose-xl prose-h1:mb-4 prose-h1:text-2xl prose-h1:font-extrabold prose-p:text-base prose-p:leading-8 prose-ul:mt-0 prose-ul:mb-2 prose-img:rounded-xl prose-h1:md:text-3xl prose-p:md:text-lg prose-p:md:leading-10">
           <h1>{post.title}</h1>
           <h2>عنوان تستی</h2>
           <p>
@@ -118,7 +120,7 @@ const PostPage = ({ post }) => {
               {post.tags.map((tag) => {
                 return (
                   <li
-                    key={post._id}
+                    key={tag}
                     className="mb-4 block cursor-pointer rounded-3xl border-gray-500 bg-secondary-color px-3 py-1 text-sm transition-all hover:bg-hover-secondary-color md:text-base"
                   >
                     {tag}
@@ -128,6 +130,44 @@ const PostPage = ({ post }) => {
             </ul>
             {/* like - bookmark - comment */}
             <PostInteraction post={post} />
+          </section>
+          <section>
+            {/* share buttons */}
+            <div className="mt-4 flex w-full items-center justify-start gap-x-7 md:mt-2 md:ml-0.5 md:w-auto md:justify-end">
+              <a
+                target="_blank"
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${process.env.NEXT_PUBLIC_DOMAIN_URL}`}
+                className="block"
+                rel="noreferrer"
+              >
+                <IoLogoLinkedin
+                  size={24}
+                  className="cursor-pointer fill-gray-400 transition-all hover:fill-gray-500"
+                />
+              </a>
+              <a
+                target="_blank"
+                href={`https://twitter.com/intent/tweet?text=${post.title}`}
+                className="block"
+                rel="noreferrer"
+              >
+                <IoLogoTwitter
+                  size={24}
+                  className="cursor-pointer fill-gray-400 transition-all hover:fill-gray-500"
+                />
+              </a>
+              <a
+                target="_blank"
+                href={`https://t.me/share/url?url=${process.env.NEXT_PUBLIC_DOMAIN_URL}&text=${post.title}`}
+                className="block"
+                rel="noreferrer"
+              >
+                <FaTelegram
+                  size={24}
+                  className="cursor-pointer fill-gray-400 transition-all hover:fill-gray-500"
+                />
+              </a>
+            </div>
           </section>
         </main>
       </div>
