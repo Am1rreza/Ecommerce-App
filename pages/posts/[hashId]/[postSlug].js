@@ -5,9 +5,21 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoLogoLinkedin, IoLogoTwitter } from "react-icons/io";
 import { FaTelegram } from "react-icons/fa";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { MdContentCopy } from "react-icons/md";
 
 const PostPage = ({ post }) => {
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  // Handlers
+  const copyHandler = () => {
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+  };
 
   // for react hydration error
   useEffect(() => {
@@ -55,7 +67,7 @@ const PostPage = ({ post }) => {
           {/* interaction buttons */}
           <div className="flex">
             <button>
-              <LinkIcon className="h-6 w-6 cursor-pointer text-secondary-color transition-all hover:text-hover-secondary-color" />
+              <LinkIcon className="h-6 w-6 cursor-pointer text-secondary-color transition-all hover:border-hover-secondary-color hover:text-hover-secondary-color" />
             </button>
             <button className="mr-4 flex items-center rounded-full border border-secondary-color px-3 py-1 text-secondary-color transition-all hover:text-hover-secondary-color">
               <span className="ml-1 text-xs">
@@ -131,9 +143,25 @@ const PostPage = ({ post }) => {
             {/* like - bookmark - comment */}
             <PostInteraction post={post} />
           </section>
-          <section>
-            {/* share buttons */}
-            <div className="mt-4 flex w-full items-center justify-start gap-x-7 md:mt-2 md:ml-0.5 md:w-auto md:justify-end">
+          {/* share buttons section*/}
+          <section className="mt-4 flex flex-row-reverse items-center justify-end gap-x-5 md:mt-0 md:flex-row">
+            <div className="relative">
+              {copied && (
+                <span className="absolute bottom-1/2 block translate-y-1/2 translate-x-full rounded-2xl bg-primary-color px-3 py-1 text-sm text-white">
+                  کپی شد
+                </span>
+              )}
+              <CopyToClipboard
+                text={`${process.env.NEXT_PUBLIC_DOMAIN_URL}/posts/${post.hashId}/${post.slug}`}
+                onCopy={copyHandler}
+              >
+                <div className="mr-1 flex cursor-pointer items-center gap-x-2 rounded-2xl border border-secondary-color px-4 py-1.5 text-secondary-color transition-all hover:border-hover-secondary-color hover:text-hover-secondary-color">
+                  <span className="text-sm">کپی&nbsp;لینک</span>
+                  <MdContentCopy size={20} />
+                </div>
+              </CopyToClipboard>
+            </div>
+            <div className="flex items-center justify-start gap-x-7 md:ml-0.5 md:w-auto md:justify-end">
               <a
                 target="_blank"
                 href={`https://www.linkedin.com/sharing/share-offsite/?url=${process.env.NEXT_PUBLIC_DOMAIN_URL}`}
