@@ -7,6 +7,7 @@ import { IoLogoLinkedin, IoLogoTwitter } from "react-icons/io";
 import { FaTelegram } from "react-icons/fa";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { MdContentCopy } from "react-icons/md";
+import BlogList from "@/components/BlogList/BlogList";
 
 const PostPage = ({ post }) => {
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
@@ -32,8 +33,8 @@ const PostPage = ({ post }) => {
 
   return (
     <div className="min-h-screen px-4 py-6 md:px-6">
-      <div className="container mx-auto md:max-w-screen-md">
-        <header className="mb-10 flex flex-col gap-y-4 sm:flex-row sm:items-start sm:justify-between">
+      <div className="container mx-auto md:max-w-screen-lg">
+        <header className="mx-auto mb-10 flex max-w-screen-md flex-col gap-y-4 sm:flex-row sm:items-start sm:justify-between">
           {/* author data */}
           <div className="flex items-stretch">
             <img
@@ -81,7 +82,7 @@ const PostPage = ({ post }) => {
             </button>
           </div>
         </header>
-        <main className="prose prose-invert md:prose-lg lg:prose-xl prose-h1:mb-4 prose-h1:text-2xl prose-h1:font-extrabold prose-p:text-base prose-p:leading-8 prose-ul:mt-0 prose-ul:mb-2 prose-img:rounded-xl prose-h1:md:text-3xl prose-p:md:text-lg prose-p:md:leading-10">
+        <main className="prose prose-invert mx-auto max-w-screen-md md:prose-lg lg:prose-xl prose-h1:mb-4 prose-h1:text-2xl prose-h1:font-extrabold prose-p:text-base prose-p:leading-8 prose-ul:mt-0 prose-ul:mb-2 prose-img:rounded-xl prose-h1:md:text-3xl prose-p:md:text-lg prose-p:md:leading-10">
           <h1>{post.title}</h1>
           <h2>عنوان تستی</h2>
           <p>
@@ -197,7 +198,16 @@ const PostPage = ({ post }) => {
               </a>
             </div>
           </section>
+          <hr />
+          <h2 className="font-extrabold">پست های مشابه</h2>
+          <br />
         </main>
+        {/* related posts */}
+        <section className="mx-auto max-w-screen-md">
+          <div className="grid grid-cols-6 gap-6">
+            <BlogList blogData={post.related} />
+          </div>
+        </section>
       </div>
     </div>
   );

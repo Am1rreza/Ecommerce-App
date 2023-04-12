@@ -4,7 +4,7 @@ import Link from "next/link";
 import PostInteraction from "../PostInteraction/PostInteraction";
 
 const BlogList = ({ blogData }) => {
-  return blogData.docs.map((blog) => {
+  return blogData.map((blog) => {
     return (
       <div
         key={blog._id}
