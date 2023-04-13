@@ -9,6 +9,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { MdContentCopy } from "react-icons/md";
 import BlogList from "@/components/BlogList/BlogList";
 import PostComments from "@/components/PostComments/PostComments";
+import toPersianDate from "@/utils/toPersianDate";
 
 const PostPage = ({ post }) => {
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
@@ -52,11 +53,7 @@ const PostPage = ({ post }) => {
               </span>
 
               <div className="text-xs font-normal text-gray-400">
-                <span>
-                  {new Date(post.createdAt).toLocaleString("fa-IR", {
-                    dateStyle: "medium",
-                  })}
-                </span>
+                <span>{toPersianDate(post.createdAt)}</span>
                 <span className="mx-1"> &bull; </span>
                 <span>
                   <span>زمان مطالعه: </span>
@@ -203,7 +200,7 @@ const PostPage = ({ post }) => {
         <div className="mx-auto mb-8 max-w-screen-md border-b border-gray-700 pb-8"></div>
         {/* related posts */}
         <section className="mx-auto max-w-screen-md">
-          <h2 className="mb-8 text-2xl font-extrabold md:text-3xl">
+          <h2 className="mb-8 px-1 text-2xl font-extrabold md:text-3xl">
             پست های مشابه
           </h2>
           <div className="grid grid-cols-6 gap-6">
