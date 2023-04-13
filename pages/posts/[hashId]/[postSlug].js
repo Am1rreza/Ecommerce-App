@@ -8,6 +8,7 @@ import { FaTelegram } from "react-icons/fa";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { MdContentCopy } from "react-icons/md";
 import BlogList from "@/components/BlogList/BlogList";
+import PostComments from "@/components/PostComments/PostComments";
 
 const PostPage = ({ post }) => {
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
@@ -198,15 +199,21 @@ const PostPage = ({ post }) => {
               </a>
             </div>
           </section>
-          <hr />
-          <h2 className="font-extrabold">پست های مشابه</h2>
-          <br />
         </main>
+        <div className="mx-auto mb-8 max-w-screen-md border-b border-gray-700 pb-8"></div>
         {/* related posts */}
         <section className="mx-auto max-w-screen-md">
+          <h2 className="mb-8 text-2xl font-extrabold md:text-3xl">
+            پست های مشابه
+          </h2>
           <div className="grid grid-cols-6 gap-6">
             <BlogList blogData={post.related} />
           </div>
+        </section>
+        {/* post comments */}
+        <div className="mx-auto mb-8 max-w-screen-md border-b border-gray-700 pb-8"></div>
+        <section className="mx-auto max-w-screen-md">
+          <PostComments post={post} />
         </section>
       </div>
     </div>
