@@ -1,3 +1,4 @@
+import Layout from "@/Layout/Index";
 import BlogList from "@/components/BlogList/BlogList";
 import DesktopCategory from "@/components/Category/DesktopCategory";
 import MobileCategory from "@/components/Category/MobileCategory";
@@ -6,23 +7,25 @@ import axios from "axios";
 
 export default function Blogs({ blogData, postCategories }) {
   return (
-    <div className="container mx-auto px-4 py-6 lg:max-w-screen-xl">
-      <div className="grid gap-4 md:grid-cols-12 md:grid-rows-[60px_minmax(300px,1fr)]">
-        <div className="hidden md:col-span-3 md:row-span-2 md:block">
-          <DesktopCategory postCategories={postCategories} />
-        </div>
+    <Layout>
+      <div className="container mx-auto px-4 py-6 lg:max-w-screen-xl">
+        <div className="grid gap-4 md:grid-cols-12 md:grid-rows-[60px_minmax(300px,1fr)]">
+          <div className="hidden md:col-span-3 md:row-span-2 md:block">
+            <DesktopCategory postCategories={postCategories} />
+          </div>
 
-        <MobileCategory postCategories={postCategories} />
+          <MobileCategory postCategories={postCategories} />
 
-        <div className="hidden md:col-span-9 md:block">
-          <DesktopSortBar />
-        </div>
+          <div className="hidden md:col-span-9 md:block">
+            <DesktopSortBar />
+          </div>
 
-        <div className="grid grid-cols-6 gap-6 md:col-span-9">
-          <BlogList blogData={blogData.docs} />
+          <div className="grid grid-cols-6 gap-6 md:col-span-9">
+            <BlogList blogData={blogData.docs} />
+          </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 
