@@ -34,3 +34,7 @@ button,
 textarea {
   font-family: iranyekan !important;
 }
+
+button:disabled {
+  cursor: not-allowed;
+}

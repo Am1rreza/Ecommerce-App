@@ -10,7 +10,7 @@ const Header = () => {
   };
 
   return (
-    <div className="w-full bg-primary-color absolute top-0 right-0 left-0 z-10">
+    <div className="w-full bg-primary-color fixed top-0 right-0 left-0 z-10">
       <nav className="container mx-auto flex flex-col items-center p-4 sm:flex-row sm:items-center sm:justify-between sm:px-4 sm:py-2 xl:max-w-screen-xl">
         <div className="flex w-full items-center justify-between sm:w-max">
           <h2 className="font-bold text-xl leading-none">سایت بلاگی</h2>

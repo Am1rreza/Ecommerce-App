@@ -14,7 +14,7 @@ const InputComponent = ({
       >
         {label}
         {formik.touched[name] && formik.errors[name] ? (
-          <div className="ml-2 flex-1 text-left text-xs text-rose-500"></div>
+          <div className="ml-2 flex-1 text-left text-xs text-rose-500">{formik.errors[name]}</div>
         ) : null}
       </label>
       <input
