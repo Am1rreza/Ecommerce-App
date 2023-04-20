@@ -12,7 +12,7 @@ export default function Blogs({ blogData, postCategories }) {
       <Head>
         <title>بلاگ ها</title>
       </Head>
-      <div className="container mx-auto px-4 py-6 lg:max-w-screen-xl">
+      <div className="container mx-auto mt-14 px-4 py-6 lg:max-w-screen-xl">
         <div className="grid gap-4 md:grid-cols-12 md:grid-rows-[60px_minmax(300px,1fr)]">
           <div className="hidden md:col-span-3 md:row-span-2 md:block">
             <DesktopCategory postCategories={postCategories} />
