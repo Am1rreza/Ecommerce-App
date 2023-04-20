@@ -52,7 +52,7 @@ const BlogList = ({ blogData }) => {
               <div className="flex items-center">
                 <ClockIcon className="h-4 w-4 stroke-gray-300" />
                 <p className="mr-0.5 text-xs text-gray-300">
-                  زمان مطالعه: {toPersianDigits(blog.readingTime)} دقیقه
+                  خواندن: {toPersianDigits(blog.readingTime)} دقیقه
                 </p>
               </div>
             </div>

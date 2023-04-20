@@ -11,6 +11,7 @@ import BlogList from "@/components/BlogList/BlogList";
 import PostComments from "@/components/PostComments/PostComments";
 import toPersianDate from "@/utils/toPersianDate";
 import Layout from "@/Layout/Index";
+import Head from "next/head";
 
 const PostPage = ({ post }) => {
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
@@ -36,6 +37,9 @@ const PostPage = ({ post }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>{post.title}</title>
+      </Head>
       <div className="min-h-screen px-4 py-6 md:px-6">
         <div className="container mx-auto md:max-w-screen-lg">
           <header className="mx-auto mb-10 flex max-w-screen-md flex-col gap-y-4 sm:flex-row sm:items-start sm:justify-between">

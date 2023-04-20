@@ -27,7 +27,7 @@ const Header = () => {
           )}
         </div>
         <ul
-          className={`mt-4 flex w-full flex-col gap-y-1 text-center sm:mt-0 sm:flex sm:w-max sm:flex-row sm:items-center sm:gap-x-4  ${
+          className={`mt-4 z-10 flex w-full flex-col gap-y-1 text-center sm:mt-0 sm:flex sm:w-max sm:flex-row sm:items-center sm:gap-x-4  ${
             isNavShow ? "" : "hidden"
           }`}
         >
