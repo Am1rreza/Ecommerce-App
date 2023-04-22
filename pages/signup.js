@@ -1,9 +1,12 @@
 import Layout from "@/Layout/Index";
 import InputComponent from "@/components/Input/Input";
+import axios from "axios";
 import { useFormik } from "formik";
 import Head from "next/head";
 import Link from "next/link";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 // initial value
 const initialValues = {
@@ -11,7 +14,7 @@ const initialValues = {
   email: "",
   phoneNumber: "",
   password: "",
-  confirmPassword: "",
+  // confirmPassword: "",
 };
 
 // validation schema
@@ -29,14 +32,27 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .required("لطفا رمز عبور خود را وارد کنید")
     .min(6, "رمز عبور باید حداقل شامل 6 کاراکتر باشد"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), ""], "رمز عبور را مجددا وارد کنید")
-    .required("رمز عبور هم خوانی ندارد"),
+  // confirmPassword: Yup.string()
+  //   .oneOf([Yup.ref("password"), ""], "رمز عبور را مجددا وارد کنید")
+  //   .required("رمز عبور هم خوانی ندارد"),
 });
 
 const RegisterForm = () => {
+  const router = useRouter();
+
   const onSubmit = (values) => {
-    const { email, password } = values;
+    axios
+      .post("http://localhost:5000/api/user/signup", values, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        toast.success("ثبت نام موفقیت آمیز بود");
+        router.push("/signin");
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data?.message);
+        console.log(err);
+      });
   };
 
   const formik = useFormik({
@@ -83,13 +99,13 @@ const RegisterForm = () => {
               formik={formik}
               className="mt-4"
             />
-            <InputComponent
+            {/* <InputComponent
               label="تکرار رمز عبور"
               name="confirmPassword"
               type="password"
               formik={formik}
               className="mt-4"
-            />
+            /> */}
             <button
               type="submit"
               disabled={!formik.isValid}

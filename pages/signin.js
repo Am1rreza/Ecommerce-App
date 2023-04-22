@@ -4,6 +4,9 @@ import { useFormik } from "formik";
 import Head from "next/head";
 import Link from "next/link";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 // initial value
 const initialValues = {
@@ -22,8 +25,18 @@ const validationSchema = Yup.object({
 });
 
 const RegisterForm = () => {
+  const router = useRouter();
+
   const onSubmit = (values) => {
-    const { email, password } = values;
+    axios
+      .post("http://localhost:5000/api/user/signin", values, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        toast.success("خوش آمدید");
+        router.push("/profile");
+      })
+      .catch((err) => toast.error(err?.response?.data?.message));
   };
 
   const formik = useFormik({
