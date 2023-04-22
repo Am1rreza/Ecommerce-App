@@ -26,7 +26,7 @@ const InputComponent = ({
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values[name]}
-        className="w-full cursor-pointer rounded bg-primary-color p-2 text-left text-sm outline-none transition-all focus:border-transparent focus:outline-none focus:ring-2 focus:ring-secondary-color"
+        className="w-full rounded bg-primary-color p-2 text-left text-sm outline-none transition-all focus:border-transparent focus:outline-none focus:ring-2 focus:ring-secondary-color"
       />
     </div>
   );
