@@ -38,28 +38,33 @@ const RegisterForm = () => {
       <Head>
         <title>صفحه‌ی ورود</title>
       </Head>
-      <div className="container mx-auto px-4 md:max-w-md absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2">
-        <form onSubmit={formik.handleSubmit} className="flex flex-col">
-          <h1 className="my-4 text-2xl font-extrabold">صفحه‌ی ورود</h1>
-          <InputComponent label="ایمیل" name="email" formik={formik} />
-          <InputComponent
-            className="mt-4"
-            label="رمز عبور"
-            name="password"
-            type="password"
-            formik={formik}
-          />
-          <button
-            type="submit"
-            disabled={!formik.isValid}
-            className="mt-8 w-full cursor-pointer rounded-md bg-secondary-color py-2 text-white transition-all hover:bg-hover-primary-color"
+      <div className="container mx-auto px-4 md:max-w-md">
+        <div className="flex min-h-screen min-w-full items-center justify-center">
+          <form
+            onSubmit={formik.handleSubmit}
+            className="mt-14 flex flex-1 flex-col"
           >
-            ورود
-          </button>
-          <Link href={"/signup"} className="py-4">
-            هنوز ثبت نام نکردی؟
-          </Link>
-        </form>
+            <h1 className="my-4 text-2xl font-extrabold">صفحه‌ی ورود</h1>
+            <InputComponent label="ایمیل" name="email" formik={formik} />
+            <InputComponent
+              className="mt-4"
+              label="رمز عبور"
+              name="password"
+              type="password"
+              formik={formik}
+            />
+            <button
+              type="submit"
+              disabled={!formik.isValid}
+              className="mt-8 w-full cursor-pointer rounded-md bg-secondary-color py-2 text-white transition-all hover:bg-hover-primary-color"
+            >
+              ورود
+            </button>
+            <Link href={"/signup"} className="py-4">
+              هنوز ثبت نام نکردی؟
+            </Link>
+          </form>
+        </div>
       </div>
     </Layout>
   );

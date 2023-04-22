@@ -51,53 +51,56 @@ const RegisterForm = () => {
       <Head>
         <title>صفحه‌ی ثبت نام</title>
       </Head>
-      <div className="container px-4 md:max-w-md mx-auto">
-        <div className="min-w-full min-h-screen flex items-center justify-center">
-        <form onSubmit={formik.handleSubmit} className="flex flex-col flex-1 mt-14">
-          <h1 className="my-4 text-2xl font-extrabold">صفحه‌ی ثبت نام</h1>
-          <InputComponent
-            label="نام و نام خانوادگی"
-            name="name"
-            formik={formik}
-          />
-          <InputComponent
-            label="ایمیل"
-            name="email"
-            formik={formik}
-            className="mt-4"
-          />
-          <InputComponent
-            type="tel"
-            label="شماره موبایل"
-            name="phoneNumber"
-            formik={formik}
-            className="mt-4"
-          />
-          <InputComponent
-            label="رمز عبور"
-            name="password"
-            type="password"
-            formik={formik}
-            className="mt-4"
-          />
-          <InputComponent
-            label="تکرار رمز عبور"
-            name="confirmPassword"
-            type="password"
-            formik={formik}
-            className="mt-4"
-          />
-          <button
-            type="submit"
-            disabled={!formik.isValid}
-            className="mt-8 w-full cursor-pointer rounded-md bg-secondary-color py-2 text-white transition-all hover:bg-hover-primary-color"
+      <div className="container mx-auto px-4 md:max-w-md">
+        <div className="flex min-h-screen min-w-full items-center justify-center">
+          <form
+            onSubmit={formik.handleSubmit}
+            className="mt-14 flex flex-1 flex-col"
           >
-            ثبت نام
-          </button>
-          <Link href={"/signin"} className="py-4">
-            قبلا ثبت نام کردی؟
-          </Link>
-        </form>
+            <h1 className="my-4 text-2xl font-extrabold">صفحه‌ی ثبت نام</h1>
+            <InputComponent
+              label="نام و نام خانوادگی"
+              name="name"
+              formik={formik}
+            />
+            <InputComponent
+              label="ایمیل"
+              name="email"
+              formik={formik}
+              className="mt-4"
+            />
+            <InputComponent
+              type="tel"
+              label="شماره موبایل"
+              name="phoneNumber"
+              formik={formik}
+              className="mt-4"
+            />
+            <InputComponent
+              label="رمز عبور"
+              name="password"
+              type="password"
+              formik={formik}
+              className="mt-4"
+            />
+            <InputComponent
+              label="تکرار رمز عبور"
+              name="confirmPassword"
+              type="password"
+              formik={formik}
+              className="mt-4"
+            />
+            <button
+              type="submit"
+              disabled={!formik.isValid}
+              className="mt-8 w-full cursor-pointer rounded-md bg-secondary-color py-2 text-white transition-all hover:bg-hover-primary-color"
+            >
+              ثبت نام
+            </button>
+            <Link href={"/signin"} className="py-4">
+              قبلا ثبت نام کردی؟
+            </Link>
+          </form>
         </div>
       </div>
     </Layout>
