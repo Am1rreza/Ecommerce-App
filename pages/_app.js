@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }) {
       <Component {...pageProps} />
       <Toaster
         toastOptions={{
-          duration: 2000,
+          duration: 3000,
         }}
       />
     </AuthProvider>

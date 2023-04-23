@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useReducerAsync } from "use-reducer-async";
@@ -62,10 +62,28 @@ const asyncActionHandlers = {
         .then((res) => {
           toast.success("ثبت نام موفقیت آمیز بود");
           dispatch({ type: "SIGNIN_SUCCESS", payload: res.data });
-          Router.push("/signin");
+          Router.push("/");
         })
         .catch((err) => {
           toast.error(err?.response?.data?.message);
+          dispatch({
+            type: "SIGNIN_REJECT",
+            error: err?.response?.data?.message,
+          });
+        });
+    },
+  LOAD_USER:
+    ({ dispatch }) =>
+    (action) => {
+      dispatch({ type: "SIGNIN_PENDING" });
+      axios
+        .get("http://localhost:5000/api/user/load", {
+          withCredentials: true,
+        })
+        .then((res) => {
+          dispatch({ type: "SIGNIN_SUCCESS", payload: res.data });
+        })
+        .catch((err) => {
           dispatch({
             type: "SIGNIN_REJECT",
             error: err?.response?.data?.message,
@@ -81,6 +99,10 @@ const AuthProvider = ({ children }) => {
     initialState,
     asyncActionHandlers
   );
+
+  useEffect(() => {
+    dispatch({ type: "LOAD_USER" });
+  }, []);
 
   return (
     <AuthContext.Provider value={user}>
