@@ -1,11 +1,12 @@
-import { useAuth } from "@/context/AuthContext";
+import { useAuth, useAuthActions } from "@/context/AuthContext";
 import Link from "next/link";
 import { useState } from "react";
 import { VscMenu, VscClose } from "react-icons/vsc";
 
 const Header = () => {
   const [isNavShow, setIsNavShow] = useState(false);
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+  const dispatch = useAuthActions();
 
   const clickHandler = () => {
     setIsNavShow(!isNavShow);
@@ -13,7 +14,11 @@ const Header = () => {
 
   return (
     <div className="fixed top-0 right-0 left-0 z-10 w-full bg-primary-color">
-      <nav className="container mx-auto flex flex-col items-center p-4 sm:flex-row sm:items-center sm:justify-between sm:px-4 sm:py-2 xl:max-w-screen-xl">
+      <nav
+        className={`container mx-auto flex flex-col items-center p-4 transition-all sm:flex-row sm:items-center sm:justify-between sm:px-4 sm:py-2 xl:max-w-screen-xl ${
+          loading ? "opacity-0" : "opacity-100"
+        }`}
+      >
         <div className="flex w-full items-center justify-between sm:w-max">
           <h2 className="text-xl font-bold leading-none">سایت بلاگی</h2>
           {isNavShow ? (
@@ -40,9 +45,17 @@ const Header = () => {
             <Link href="/blogs">بلاگ ها</Link>
           </li>
           {user ? (
-            <li className="cursor-pointer rounded p-2 transition-all duration-150 hover:bg-secondary-color">
-              <Link href="/profile">پروفایل</Link>
-            </li>
+            <>
+              <li className="cursor-pointer rounded p-2 transition-all duration-150 hover:bg-secondary-color">
+                <Link href="/profile">پروفایل</Link>
+              </li>
+              <button
+                onClick={() => dispatch({ type: "SIGNOUT" })}
+                className="cursor-pointer rounded p-2 transition-all duration-150 hover:bg-red-500 hover:text-white"
+              >
+                خروج
+              </button>
+            </>
           ) : (
             <>
               <li className="cursor-pointer rounded p-2 transition-all duration-150 hover:bg-secondary-color">

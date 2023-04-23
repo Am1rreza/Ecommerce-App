@@ -10,7 +10,7 @@ const AuthContextDispatcher = createContext();
 const initialState = {
   user: null,
   error: null,
-  loading: false,
+  loading: true,
 };
 
 const reducer = (state, action) => {
@@ -90,7 +90,18 @@ const asyncActionHandlers = {
           });
         });
     },
-  SIGNOUT: () => {},
+  SIGNOUT:
+    ({ dispatch }) =>
+    (action) => {
+      axios
+        .get("http://localhost:5000/api/user/logout", {
+          withCredentials: true,
+        })
+        .then(() => {
+          window.location.assign("/");
+        })
+        .catch();
+    },
 };
 
 const AuthProvider = ({ children }) => {
