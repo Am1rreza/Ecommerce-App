@@ -1,10 +1,11 @@
 import Layout from "@/Layout/Index";
 import InputComponent from "@/components/Input/Input";
-import { useAuthActions } from "@/context/AuthContext";
+import { useAuth, useAuthActions } from "@/context/AuthContext";
 import { useFormik } from "formik";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import * as Yup from "yup";
 
 // initial value
@@ -26,6 +27,11 @@ const validationSchema = Yup.object({
 const RegisterForm = () => {
   const dispatch = useAuthActions();
   const router = useRouter();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) router.push("/");
+  }, [user]);
 
   const onSubmit = (values) => {
     dispatch({ type: "SIGNIN", payload: values });
