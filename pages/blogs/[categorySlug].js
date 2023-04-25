@@ -3,7 +3,7 @@ import BlogList from "@/components/BlogList/BlogList";
 import DesktopCategory from "@/components/Category/DesktopCategory";
 import MobileCategory from "@/components/Category/MobileCategory";
 import DesktopSortBar from "@/components/SortBar/DesktopSortBar";
-import axios from "axios";
+import http from "@/services/httpService";
 import queryString from "query-string";
 
 export default function CategoryPage({ blogData, postCategories }) {
@@ -33,18 +33,15 @@ export default function CategoryPage({ blogData, postCategories }) {
 export async function getServerSideProps(context) {
   const { query, req } = context;
 
-  const { data: result } = await axios.get(
-    `http://localhost:5000/api/posts?${queryString.stringify(query)}`,
+  const { data: result } = await http.get(
+    `/posts?${queryString.stringify(query)}`,
     {
-      withCredentials: true,
       headers: {
         Cookie: req.headers.cookie || "",
       },
     }
   );
-  const { data: postCategories } = await axios.get(
-    "http://localhost:5000/api/post-category"
-  );
+  const { data: postCategories } = await http.get("/post-category");
 
   const { data } = result;
 

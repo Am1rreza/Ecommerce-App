@@ -1,7 +1,6 @@
 import PostInteraction from "@/components/PostInteraction/PostInteraction";
 import toPersianDigits from "@/utils/toPersianDigits";
 import { LinkIcon, BookmarkIcon } from "@heroicons/react/24/outline";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoLogoLinkedin, IoLogoTwitter } from "react-icons/io";
 import { FaTelegram } from "react-icons/fa";
@@ -12,6 +11,7 @@ import PostComments from "@/components/PostComments/PostComments";
 import toPersianDate from "@/utils/toPersianDate";
 import Layout from "@/Layout/Index";
 import Head from "next/head";
+import http from "@/services/httpService";
 
 const PostPage = ({ post }) => {
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
@@ -228,15 +228,11 @@ export default PostPage;
 
 export async function getServerSideProps(ctx) {
   const { query, req } = ctx;
-  const { data } = await axios.get(
-    `http://localhost:5000/api/posts/${query.postSlug}`,
-    {
-      withCredentials: true,
-      headers: {
-        Cookie: req.headers.cookie || "",
-      },
-    }
-  );
+  const { data } = await http.get(`/posts/${query.postSlug}`, {
+    headers: {
+      Cookie: req.headers.cookie || "",
+    },
+  });
 
   return {
     props: {
