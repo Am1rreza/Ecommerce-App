@@ -227,9 +227,15 @@ const PostPage = ({ post }) => {
 export default PostPage;
 
 export async function getServerSideProps(ctx) {
-  const { query } = ctx;
+  const { query, req } = ctx;
   const { data } = await axios.get(
-    `http://localhost:5000/api/posts/${query.postSlug}`
+    `http://localhost:5000/api/posts/${query.postSlug}`,
+    {
+      withCredentials: true,
+      headers: {
+        Cookie: req.headers.cookie || "",
+      },
+    }
   );
 
   return {
