@@ -1,15 +1,54 @@
+import http from "@/services/httpService";
 import toPersianDigits from "@/utils/toPersianDigits";
 import {
   BookmarkIcon,
   HeartIcon,
   ChatBubbleBottomCenterTextIcon,
 } from "@heroicons/react/24/outline";
+import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 const PostInteraction = ({ post, isSmall }) => {
   const iconSize = `${isSmall ? "w-4 h-4" : "w-6 h-6"}`;
   const chatBackgroundColor = `${isSmall ? "bg-gray-400" : ""}`;
   const heartBackgroundColor = `${isSmall ? "bg-red-300" : ""}`;
   const bookmarkBackgroundColor = `${isSmall ? "bg-blue-300" : ""}`;
+  const router = useRouter();
+
+  // Handlers
+  const likeHandler = (postId) => {
+    http
+      .put(`/posts/like/${postId}`)
+      .then((res) => {
+        router.push(
+          {
+            pathname: router.pathname,
+            query: router.query,
+          },
+          undefined,
+          { scroll: false }
+        );
+        toast.success(res.data.message);
+      })
+      .catch((err) => toast.error(err?.response?.data?.message));
+  };
+
+  const bookmarkHandler = (postId) => {
+    http
+      .put(`/posts/bookmark/${postId}`)
+      .then((res) => {
+        router.push(
+          {
+            pathname: router.pathname,
+            query: router.query,
+          },
+          undefined,
+          { scroll: false }
+        );
+        toast.success(res.data.message);
+      })
+      .catch((err) => toast.error(err?.response?.data?.message));
+  };
 
   return (
     <div className={`flex items-center ${isSmall ? "gap-x-1" : "gap-x-4"}`}>
@@ -24,6 +63,7 @@ const PostInteraction = ({ post, isSmall }) => {
         </span>
       </span>
       <span
+        onClick={() => likeHandler(post._id)}
         className={`flex cursor-pointer items-center rounded p-0.5 ${heartBackgroundColor}`}
       >
         <HeartIcon
@@ -38,6 +78,7 @@ const PostInteraction = ({ post, isSmall }) => {
         </span>
       </span>
       <span
+        onClick={() => bookmarkHandler(post._id)}
         className={`flex cursor-pointer items-center rounded p-0.5 ${bookmarkBackgroundColor}`}
       >
         <BookmarkIcon
