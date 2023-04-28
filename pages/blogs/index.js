@@ -5,6 +5,7 @@ import MobileCategory from "@/components/Category/MobileCategory";
 import DesktopSortBar from "@/components/SortBar/DesktopSortBar";
 import http from "@/services/httpService";
 import Head from "next/head";
+import queryString from "query-string";
 
 export default function Blogs({ blogData, postCategories }) {
   return (
@@ -33,12 +34,15 @@ export default function Blogs({ blogData, postCategories }) {
   );
 }
 
-export async function getServerSideProps({ req }) {
-  const { data: result } = await http.get("/posts?limit=10&page=1", {
-    headers: {
-      Cookie: req.headers.cookie || "",
-    },
-  });
+export async function getServerSideProps({ req, query }) {
+  const { data: result } = await http.get(
+    `/posts?${queryString.stringify(query)}&limit=6`,
+    {
+      headers: {
+        Cookie: req.headers.cookie || "",
+      },
+    }
+  );
   const { data: postCategories } = await http.get("/post-category");
 
   const { data } = result;
