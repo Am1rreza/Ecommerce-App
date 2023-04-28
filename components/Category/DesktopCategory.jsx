@@ -1,8 +1,10 @@
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 const DesktopCategory = ({ postCategories }) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -27,7 +29,11 @@ const DesktopCategory = ({ postCategories }) => {
       >
         <Link
           href={"/blogs"}
-          className="-mb-1 block py-2 pr-4 transition-all hover:bg-hover-secondary-color"
+          className={`-mb-1 block py-2 pr-4 transition-all hover:bg-hover-secondary-color ${
+            !router.query.categorySlug
+              ? "bg-hover-primary-color hover:bg-hover-primary-color"
+              : ""
+          }`}
         >
           همه مقالات
         </Link>
@@ -36,7 +42,11 @@ const DesktopCategory = ({ postCategories }) => {
             <Link
               key={category._id}
               href={`/blogs/${category.englishTitle}`}
-              className="block py-2 pr-4 transition-all hover:bg-hover-secondary-color"
+              className={`block py-2 pr-4 transition-all hover:bg-hover-secondary-color ${
+                router.query.categorySlug === category.englishTitle
+                  ? "bg-hover-primary-color hover:bg-hover-primary-color"
+                  : ""
+              }`}
             >
               {category.title}
             </Link>
