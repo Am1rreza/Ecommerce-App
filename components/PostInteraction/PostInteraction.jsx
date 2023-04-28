@@ -1,4 +1,5 @@
 import http from "@/services/httpService";
+import routerPush from "@/utils/routerPush";
 import toPersianDigits from "@/utils/toPersianDigits";
 import {
   BookmarkIcon,
@@ -20,14 +21,7 @@ const PostInteraction = ({ post, isSmall }) => {
     http
       .put(`/posts/like/${postId}`)
       .then((res) => {
-        router.push(
-          {
-            pathname: router.pathname,
-            query: router.query,
-          },
-          undefined,
-          { scroll: false }
-        );
+        routerPush(router);
         toast.success(res.data.message);
       })
       .catch((err) => toast.error(err?.response?.data?.message));
@@ -37,14 +31,7 @@ const PostInteraction = ({ post, isSmall }) => {
     http
       .put(`/posts/bookmark/${postId}`)
       .then((res) => {
-        router.push(
-          {
-            pathname: router.pathname,
-            query: router.query,
-          },
-          undefined,
-          { scroll: false }
-        );
+        routerPush(router);
         toast.success(res.data.message);
       })
       .catch((err) => toast.error(err?.response?.data?.message));
