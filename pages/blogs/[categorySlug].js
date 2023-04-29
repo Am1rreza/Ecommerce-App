@@ -1,4 +1,5 @@
 import Layout from "@/Layout/Index";
+import PaginationComponent from "@/common/Pagination";
 import BlogList from "@/components/BlogList/BlogList";
 import DesktopCategory from "@/components/Category/DesktopCategory";
 import MobileCategory from "@/components/Category/MobileCategory";
@@ -23,6 +24,10 @@ export default function CategoryPage({ blogData, postCategories }) {
 
           <div className="grid grid-cols-6 gap-6 md:col-span-9">
             <BlogList blogData={blogData.docs} />
+            <PaginationComponent
+              page={blogData.page}
+              totalPages={blogData.totalPages}
+            />
           </div>
         </div>
       </div>
