@@ -8,7 +8,7 @@ const DesktopCategory = ({ postCategories }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="overflow-hidden rounded-lg">
+    <div className="overflow-hidden rounded-lg sticky top-20">
       {/* accordion header*/}
       <div
         className="flex cursor-pointer items-center justify-between bg-primary-color p-3"
