@@ -12,10 +12,14 @@ import toPersianDate from "@/utils/toPersianDate";
 import Layout from "@/Layout/Index";
 import Head from "next/head";
 import http from "@/services/httpService";
+import routerPush from "@/utils/routerPush";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const PostPage = ({ post }) => {
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
   const [copied, setCopied] = useState(false);
+  const router = useRouter();
 
   // Handlers
   const copyHandler = () => {
@@ -24,6 +28,16 @@ const PostPage = ({ post }) => {
     setTimeout(() => {
       setCopied(false);
     }, 1000);
+  };
+
+  const bookmarkHandler = (postId) => {
+    http
+      .put(`/posts/bookmark/${postId}`)
+      .then((res) => {
+        routerPush(router);
+        toast.success(res.data.message);
+      })
+      .catch((err) => toast.error(err?.response?.data?.message));
   };
 
   // for react hydration error
@@ -75,7 +89,10 @@ const PostPage = ({ post }) => {
                 <LinkIcon className="h-6 w-6 cursor-pointer text-secondary-color transition-all hover:border-hover-secondary-color hover:text-hover-secondary-color" />
               </button>
               <button className="mr-4 flex items-center rounded-full border border-secondary-color px-3 py-1 text-secondary-color transition-all hover:text-hover-secondary-color">
-                <span className="ml-1 text-xs">
+                <span
+                  onClick={() => bookmarkHandler(post._id)}
+                  className="ml-1 text-xs"
+                >
                   {post.isBookmarked ? "ذخیره شده" : "ذخیره"}
                 </span>
                 <BookmarkIcon
