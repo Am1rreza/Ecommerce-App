@@ -1,10 +1,34 @@
+import http from "@/services/httpService";
+import routerPush from "@/utils/routerPush";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/router";
 import toPersianDate from "@/utils/toPersianDate";
 import { useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 
-const SingleComment = ({ comment }) => {
+const SingleComment = ({ comment, postId }) => {
   const [onReply, setOnReply] = useState(false);
   const [commentValue, setCommentValue] = useState("");
+  const router = useRouter();
+
+  // Handlers
+  const submitHandler = () => {
+    const data = {
+      content: commentValue,
+      responseTo: comment._id,
+      postId,
+    };
+
+    http
+      .post("/post-comment/save-comment", data)
+      .then((res) => {
+        setCommentValue("");
+        setOnReply(false);
+        toast.success(res.data.message);
+        routerPush(router);
+      })
+      .catch((err) => toast.error(err?.response?.data?.message));
+  };
 
   return (
     <div className="mt-6 rounded-md border border-primary-color bg-secondary-color p-4">
@@ -35,7 +59,10 @@ const SingleComment = ({ comment }) => {
             value={commentValue}
             onChange={(e) => setCommentValue(e.target.value)}
           ></textarea>
-          <button className="mx-auto w-full cursor-pointer rounded-lg bg-secondary-color p-2 transition-all hover:bg-hover-secondary-color sm:w-56">
+          <button
+            onClick={submitHandler}
+            className="mx-auto w-full cursor-pointer rounded-lg bg-secondary-color p-2 transition-all hover:bg-hover-secondary-color sm:w-56"
+          >
             ارسال نظر
           </button>
         </form>

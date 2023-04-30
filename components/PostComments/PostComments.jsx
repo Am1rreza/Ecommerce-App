@@ -1,9 +1,32 @@
 import React, { useState } from "react";
 import SingleComment from "../SingleComment/SingleComment";
 import ReplyComment from "./ReplyComment";
+import http from "@/services/httpService";
+import routerPush from "@/utils/routerPush";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const PostComments = ({ post }) => {
   const [comment, setComment] = useState("");
+  const router = useRouter();
+
+  // Handlers
+  const submitHandler = () => {
+    const data = {
+      content: comment,
+      responseTo: null,
+      postId: post._id,
+    };
+
+    http
+      .post("/post-comment/save-comment", data)
+      .then((res) => {
+        setComment("");
+        toast.success(res.data.message);
+        routerPush(router);
+      })
+      .catch((err) => toast.error(err?.response?.data?.message));
+  };
 
   return (
     <div>
@@ -13,10 +36,11 @@ const PostComments = ({ post }) => {
           !comment.responseTo &&
           comment.status === 2 && (
             <React.Fragment key={comment._id}>
-              <SingleComment comment={comment} />
+              <SingleComment comment={comment} postId={post._id} />
               <ReplyComment
                 comments={post.comments}
                 parentCommentId={comment._id}
+                postId={post._id}
               />
             </React.Fragment>
           )
@@ -31,7 +55,10 @@ const PostComments = ({ post }) => {
           onChange={(e) => setComment(e.target.value)}
           placeholder="نظرت رو برام بنویس ..."
         ></textarea>
-        <button className="mx-auto w-full cursor-pointer rounded-lg bg-primary-color p-2 transition-all hover:bg-hover-primary-color sm:w-56 md:text-lg">
+        <button
+          onClick={submitHandler}
+          className="mx-auto w-full cursor-pointer rounded-lg bg-primary-color p-2 transition-all hover:bg-hover-primary-color sm:w-56 md:text-lg"
+        >
           ارسال نظر
         </button>
       </form>
