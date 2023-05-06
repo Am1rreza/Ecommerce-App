@@ -1,9 +1,12 @@
-import axios from "axios";
 import {
   SIGNIN_USER_REQUEST,
   SIGNIN_USER_SUCCESS,
   SIGNIN_USER_FAILURE,
+  SIGNUP_USER_FAILURE,
+  SIGNUP_USER_REQUEST,
+  SIGNUP_USER_SUCCESS,
 } from "./userTypes";
+import http from "@/services/httpService";
 
 export const signinUserRequest = () => {
   return {
@@ -25,20 +28,50 @@ export const signinUserFailure = (error) => {
   };
 };
 
-//? we dispatch the appropiate actions :
-export const fetchUsers = () => {
-  //? recieves the dispach method as arguments
+export const signupUserRequest = () => {
+  return {
+    type: SIGNUP_USER_REQUEST,
+  };
+};
+
+export const signupUserSuccess = (users) => {
+  return {
+    type: SIGNUP_USER_SUCCESS,
+    payload: users,
+  };
+};
+
+export const signupUserFailure = (error) => {
+  return {
+    type: SIGNUP_USER_FAILURE,
+    payload: error,
+  };
+};
+
+export const userSignin = (data) => {
   return (dispatch) => {
     dispatch(signinUserRequest());
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
+    http
+      .post("/user/signin", data, { withCredentials: true })
       .then((response) => {
-        // const users = response.data.map((user) => user.name);
         dispatch(signinUserSuccess(response.data));
-        // dispatch({type:FETCH_USERS_SUCCESS,payload:response.data});
       })
       .catch((error) => {
         dispatch(signinUserFailure(error.message));
+      });
+  };
+};
+
+export const userSignup = (data) => {
+  return (dispatch) => {
+    dispatch(signupUserRequest());
+    http
+      .post("/user/signup", data, { withCredentials: true })
+      .then((response) => {
+        dispatch(signupUserSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(signupUserFailure(error.message));
       });
   };
 };
