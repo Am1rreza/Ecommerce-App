@@ -105,3 +105,15 @@ export const userSignout = () => (dispatch) => {
     })
     .catch();
 };
+
+
+export const loadUserData = (store) => {
+  http
+    .get("/user/load", {
+      withCredentials: true,
+    })
+    .then((res) => {
+      store.dispatch(signinUserSuccess(res.data));
+    })
+    .catch((err) => console.log(err));
+};
