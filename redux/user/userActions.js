@@ -1,4 +1,4 @@
-import { Router } from "next/router";
+import Router from "next/router";
 import {
   SIGNIN_USER_REQUEST,
   SIGNIN_USER_SUCCESS,
@@ -6,6 +6,7 @@ import {
   SIGNUP_USER_FAILURE,
   SIGNUP_USER_REQUEST,
   SIGNUP_USER_SUCCESS,
+  SIGNOUT_USER,
 } from "./userTypes";
 import http from "@/services/httpService";
 import { toast } from "react-hot-toast";
@@ -91,4 +92,16 @@ export const userSignup = (data) => {
         dispatch(signupUserFailure(errorMessage));
       });
   };
+};
+
+export const userSignout = () => (dispatch) => {
+  dispatch({ type: SIGNOUT_USER });
+  http
+    .get("/user/logout", {
+      withCredentials: true,
+    })
+    .then(() => {
+      window.location.assign("/");
+    })
+    .catch();
 };

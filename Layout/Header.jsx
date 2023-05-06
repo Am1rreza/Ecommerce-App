@@ -1,3 +1,4 @@
+import { userSignout } from "@/redux/user/userActions";
 import Link from "next/link";
 import { useState } from "react";
 import { VscMenu, VscClose } from "react-icons/vsc";
@@ -51,7 +52,7 @@ const Header = () => {
                 <Link href="/profile">پروفایل</Link>
               </li>
               <button
-                onClick={() => dispatch({ type: "SIGNOUT" })}
+                onClick={() => dispatch(userSignout())}
                 className="cursor-pointer rounded p-2 transition-all duration-150 hover:bg-red-500 hover:text-white"
               >
                 خروج
