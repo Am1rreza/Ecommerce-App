@@ -1,8 +1,9 @@
 import AuthProvider from "@/context/AuthContext";
+import { wrapper } from "@/redux/store";
 import "@/styles/globals.css";
 import { Toaster } from "react-hot-toast";
 
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <AuthProvider>
       <Component {...pageProps} />
@@ -14,3 +15,5 @@ export default function App({ Component, pageProps }) {
     </AuthProvider>
   );
 }
+
+export default wrapper.withRedux(App);
