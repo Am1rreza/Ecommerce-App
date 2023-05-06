@@ -4,9 +4,10 @@ import { useFormik } from "formik";
 import Head from "next/head";
 import Link from "next/link";
 import * as Yup from "yup";
-import { useAuth, useAuthActions } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userSignup } from "@/redux/user/userActions";
 
 // initial value
 const initialValues = {
@@ -32,22 +33,20 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .required("لطفا رمز عبور خود را وارد کنید")
     .min(6, "رمز عبور باید حداقل شامل 6 کاراکتر باشد"),
-  // confirmPassword: Yup.string()
-  //   .oneOf([Yup.ref("password"), ""], "رمز عبور را مجددا وارد کنید")
-  //   .required("رمز عبور هم خوانی ندارد"),
 });
 
 const RegisterForm = () => {
-  const dispatch = useAuthActions();
+  const userInfo = useSelector((state) => state.userSignin);
+  const { user } = userInfo;
+  const dispatch = useDispatch();
   const router = useRouter();
-  const { user } = useAuth();
 
   useEffect(() => {
     if (user) router.push("/");
   }, [user]);
 
   const onSubmit = (values) => {
-    dispatch({ type: "SIGNUP", payload: values });
+    dispatch(userSignup(values));
   };
 
   const formik = useFormik({
@@ -94,13 +93,6 @@ const RegisterForm = () => {
               formik={formik}
               className="mt-4"
             />
-            {/* <InputComponent
-              label="تکرار رمز عبور"
-              name="confirmPassword"
-              type="password"
-              formik={formik}
-              className="mt-4"
-            /> */}
             <button
               type="submit"
               disabled={!formik.isValid}

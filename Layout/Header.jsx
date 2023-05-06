@@ -1,12 +1,13 @@
-import { useAuth, useAuthActions } from "@/context/AuthContext";
 import Link from "next/link";
 import { useState } from "react";
 import { VscMenu, VscClose } from "react-icons/vsc";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
   const [isNavShow, setIsNavShow] = useState(false);
-  const { user, loading } = useAuth();
-  const dispatch = useAuthActions();
+  const userInfo = useSelector((state) => state.userSignin);
+  const { user, loading } = userInfo;
+  const dispatch = useDispatch();
 
   const clickHandler = () => {
     setIsNavShow(!isNavShow);

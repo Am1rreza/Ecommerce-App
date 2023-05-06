@@ -31,7 +31,7 @@ export const userSigninReducer = (state = {}, action) => {
 
 export const userSignupReducer = (state = {}, action) => {
   switch (action.type) {
-    case SIGNUP_USER_FAILURE:
+    case SIGNUP_USER_REQUEST:
       return {
         loading: true,
       };
