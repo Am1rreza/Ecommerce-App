@@ -1,3 +1,4 @@
+import { Router } from "next/router";
 import {
   SIGNIN_USER_REQUEST,
   SIGNIN_USER_SUCCESS,
@@ -7,6 +8,7 @@ import {
   SIGNUP_USER_SUCCESS,
 } from "./userTypes";
 import http from "@/services/httpService";
+import { toast } from "react-hot-toast";
 
 export const signinUserRequest = () => {
   return {
@@ -54,10 +56,17 @@ export const userSignin = (data) => {
     http
       .post("/user/signin", data, { withCredentials: true })
       .then((response) => {
+        toast.success("خوش آمدید");
+        Router.push("/");
         dispatch(signinUserSuccess(response.data));
       })
       .catch((error) => {
-        dispatch(signinUserFailure(error.message));
+        const errorMessage =
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
+        toast.error(errorMessage);
+        dispatch(signinUserFailure(errorMessage));
       });
   };
 };
@@ -68,11 +77,18 @@ export const userSignup = (data) => {
     http
       .post("/user/signup", data, { withCredentials: true })
       .then((response) => {
+        toast.success("ثبت نام موفقیت آمیز بود");
+        Router.push("/");
         dispatch(signupUserSuccess(response.data));
         dispatch(signinUserSuccess(response.data));
       })
       .catch((error) => {
-        dispatch(signupUserFailure(error.message));
+        const errorMessage =
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
+        toast.error(errorMessage);
+        dispatch(signupUserFailure(errorMessage));
       });
   };
 };
